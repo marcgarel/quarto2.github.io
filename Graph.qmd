@@ -1,0 +1,257 @@
+---
+title: "Graph"
+format: html
+---
+
+## <span style="color: steelblue;">I-Use of ggplot packages to perform smart plot</span>
+
+**ggplot2** is a powerfull packages to make a very smart graph "ready to use" for publication. **gg** means grammar and graph, a concept which describe a graph using grammar. This package belong to tidyverse according to "dplyr". According to the ggplot2 concept, a graph can be divided into different basic parts:**Plot = data + Aesthetics + Geometry**
+
+- *data* : data frame
+- *aesthetics* : allows to indicate the x and y variables. It can also be used to control the color, size and shape of the points, etc...
+- *geometry* : corresponds to the type of graph (histogram, box plot, line plot, .....)
+
+### How to build a graph
+#### Scatter plot 
+```{r}
+# if not alraedy done load library ggplot2
+library(ggplot2)
+data(iris)
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width))+ # scatter plot 
+  geom_point()
+
+```
+
+#### Line plot
+```{r}
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width))+ # scatter plot 
+  geom_line()
+```
+
+### How to customise plot 
+#### Size and shape of the scatter plot
+```{r}
+# Change size, color and shape in a scatter plot 
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width))+ # scatter plot 
+  geom_point(size=3, color ="steelblue", shape=21)  # shape is the same thing wiht classical plot on R
+
+```
+
+#### Some examples of customization on plot from iris data set 
+
+##### Change the shape and color : color according to species
+```{r}
+# We can calorize and give a shape by month 
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width))+ # scatter plot 
+  geom_point(aes(color = Species, shape = Species)) # shape is the same thing with classical plot on R
+```
+##### Change the shape and color : gradient of color and shape accroding to species 
+
+**Be carefull alpha option is for transparency and ranged between 0 and 1**
+```{r}
+ggplot(data = iris, aes(Sepal.Width,Sepal.Length))+  
+geom_point(aes(color = Petal.Width, shape = Species), size = 2,alpha=(0.8))
+```
+
+**<span style="color: red;">What kind of conclusion we can give me with this kind of graph?</span>**
+
+#### You can defin your own gradiend with scale_color_gradient()
+
+```{r}
+ggplot(data = iris, aes(Sepal.Width,Sepal.Length))+  
+geom_point(aes(color = Petal.Width, shape = Species), size = 2,alpha=(0.8))+
+scale_color_gradient(low = "yellow", high = "red")
+```
+
+
+
+##### Custom the color for each species, add them and storage of the plot in a object
+```{r}
+# You can change manually color with la fonction scale_color_manual()
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width))+ # scatter plot 
+ geom_point(aes(color = Species, shape = Species))  +
+  scale_color_manual(values = c("#00AFBB", "#E7B800", "#FC4E07"))
+
+#You can store your plot in a variable to print later 
+p<-ggplot(data = iris, aes(Sepal.Length, Sepal.Width))+ # scatter plot 
+ geom_point(aes(color = Species, shape = Species))  +
+  scale_color_manual(values = c("#00AFBB", "#E7B800", "#FC4E07"))+
+  theme_minimal()
+  
+
+print(p)
+```
+<span style="color: red;">**What do you see if you play the following command : names(p)?**</span>
+
+
+#### Change legend position and add title with axis label
+
+```{r}
+#To arrange the graph we can add some label and change the position of the legend
+p + theme(legend.position = "top")
+
+p + labs(color = "Species", shape= "Sepcies",
+  title = "Sepal Length for each speices",
+  subtitle = "is a data frame with 150 cases (rows) and 5 variables",
+  x = "Sepal.Length (mm)", y = "Sepal.Width (mm)"
+  )
+```
+
+#### Add a trend curve using stat_smooth()
+```{r}
+p2<-ggplot(data = iris, aes(Sepal.Length,Petal.Length))+ # scatter plot 
+  geom_point(size=3, color ="steelblue") +
+  stat_smooth(method=lm, se=TRUE, na.rm=TRUE, show.legend = TRUE)
+p2 + labs(x = "Sepal.Length (mm)", y = "Pepal.Length (mm)")
+
+```
+To get data from the trend
+```{r}
+ggplot_build(p2)$data[[2]]
+```
+#### Density plot 
+
+```{r,message=FALSE}
+ ggplot(data = iris)+
+geom_density(aes(x = Sepal.Length, fill = "Sepal.Length"))
+```
+##### And I add a layer... 
+```{r,message=FALSE}
+ggplot(data = iris)+
+geom_density(aes(x = Sepal.Length, fill = "Sepal.Length"))+
+geom_density(aes(x = Sepal.Width, fill = "Sepal.Width"))
+```
+##### one more
+```{r}
+ggplot(data = iris)+
+geom_density(aes(x = Sepal.Length, fill = "Sepal.Length"))+
+geom_density(aes(x = Sepal.Width, fill = "Sepal.Width"))+
+geom_density(aes(x = Petal.Width, fill = "Petal.Width"))
+```
+
+##### And the last one with some aesthics 
+```{r,message=FALSE}
+ggplot(data = iris)+
+geom_density(aes(x = Sepal.Length, fill = "Sepal.Length"), alpha=0.4,color=NA)+
+geom_density(aes(x = Sepal.Width, fill = "Sepal.Width"), alpha=0.4,color=NA)+
+geom_density(aes(x = Petal.Width, fill = "Petal.Width"), alpha=0.4,color=NA)+
+geom_density(aes(x = Petal.Length, fill = "Petal.Length"), alpha=0.4,color=NA)+
+labs(x="cm", y="Fréquence")
+``` 
+
+
+#### Bar plot 
+```{r}
+library(dplyr)
+my_df<-iris %>%
+  dplyr::group_by(Species)%>%
+  dplyr::summarise(moyenne=mean(Sepal.Length, na.rm=TRUE), sd=sd(Sepal.Length, na.rm=TRUE))
+
+my_df<-as.data.frame(my_df)
+
+ggplot(data = my_df, aes(Species, moyenne))+# scatter plot
+  geom_col(aes(color= Species, fill=Species))+
+  labs(x="Species", y="Sepal.Length (mm)")+
+  geom_errorbar(aes(ymin = moyenne-sd, ymax = moyenne+sd), width=0.2)
+```
+
+#### Boxplot 
+```{r}
+ggplot(data = iris, aes(Species, Sepal.Length))+ 
+  geom_boxplot()+
+  labs(x="Species", y="Sepal.Length (mm)")+
+  theme_minimal()
+
+```
+
+##### With some aesthetics : color by species, transparency and theme 
+```{r}
+ggplot(data = iris, aes(Species, Sepal.Length))+
+  geom_boxplot(aes(color=Species, fill=Species), alpha=0.4)+
+  labs(x="Species", y="Sepal.Length (mm)")+
+  theme_minimal()
+```
+
+##### I add data on the boxplot 
+```{r}
+ggplot(data = iris, aes(Species, Sepal.Length))+
+  geom_boxplot(aes(color=Species, fill=Species), alpha=0.4)+
+  geom_jitter(aes(colour = Species), position = position_jitter(0.07), cex = 2.2)+
+  labs(x="Species", y="Sepal.Length (mm)")+
+  theme_minimal()
+```
+
+##### Or I add mean on boxplot 
+```{r}
+ggplot(data=iris, aes(x=Species, y=Sepal.Length))+
+geom_boxplot(aes(fill=Species,col=Species),alpha=0.6)+
+labs(x="Species",y="Sepal Length", title="Iris Boxplot")+
+stat_summary(fun=mean, geom="point", shape=5, col="white", size=3) 
+```
+
+#### 2D approach: geom_density2d
+Notez Densité à travers des contours lignes
+```{r}
+ggplot(data=iris,aes(x=Sepal.Width,y=Sepal.Length, color=Species))+ 
+geom_density2d()
+``` 
+
+##### I data on the contour plot 
+```{r}
+ggplot(data=iris,aes(x=Sepal.Width,y=Sepal.Length, color=Species)) +
+geom_point()+
+geom_density2d()
+```
+
+
+**Save your plot**
+```{r}
+pdf("yourfile.pdf")
+ggplot(data = iris, aes(Species, Sepal.Length))+
+  geom_boxplot(aes(color=Species, fill=Species), alpha=0.4)+
+  geom_jitter(aes(colour = Species), position = position_jitter(0.07), cex = 2.2)+
+  labs(x="Species", y="Sepal.Length (mm)")+
+  theme_minimal()
+dev.off()
+```
+
+
+### How to make a figure with different pannel?
+
+For this, we will use **facet_wrap** option on iris data 
+
+```{r}
+ggplot(data = iris, aes(Sepal.Length,Petal.Length))+
+  geom_point(aes(shape = Species))+
+  facet_wrap(~Species, scales = "free")
+```
+
+
+### Interactive graph using plotly package
+
+If not installed, you have to install it and load it 
+```{r}
+p4<-ggplot(data = iris, aes(Species, Sepal.Length))+
+  geom_boxplot(aes(color=Species, fill=Species), alpha=0.4)+
+  geom_jitter(aes(colour = Species), position = position_jitter(0.07), cex = 2.2)+
+  labs(x="Species", y="Sepal.Length (mm)")+
+  theme_minimal()
+
+plotly::ggplotly(p4, height = 350, width=800)
+```
+
+*Exo 1*
+
+1. Read the data set mapfileFa.txt
+2. Give me the structure of the data set, and explore the data set. Dimension of the data set ? What kind of variable do you have? 
+3. Give me the distribution Chlorophyl and Nanoeukaryote using ggplot and geom_boxplot() colored by the geography. Using the package patchwork (https://cran.r-project.org/web/packages/patchwork/vignettes/patchwork.html) build figure with these two on a same pages and save  it as pdf
+4. Add a variable into the data frame as the ratio between NT and PT. Build a scatter of the ratio NT/PT as a function sample name and sort by geography using facet_wrap function. Change x and y label as Sample Name and Ratio NR/TP. Give a title at your figure.
+5. Group dataset by the geopgraphy ,calclulate the mean and the sd of the nbr of Crypto. Build a bar plot with mean and error bar (sd) colored according to the geography and save the plot  
+6. Save figure as pdf
+7. Filter South data in a new data frame. Build a scatter plot, with size of shape = 3 and color = red. Add a trend curve. 
+8. Do the the same for northern site.
+
+
+## <span style="color: steelblue;">II-Package Escquisse</span>
+
+Esquisse is a web application to build easily a ggplot giving commande line to customize it. . Also, it is export graph as a picture or pdf

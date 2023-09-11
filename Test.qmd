@@ -1,0 +1,17 @@
+---
+title: "Test"
+format: html
+---
+
+## Hello world
+
+```{r}
+plot(cars)
+```
+
+## C'est trop cool 
+
+:::{.callout-warning}
+Note that there are five types of callouts, including: 
+`note`, `tip`, `warning`, `caution`, and `important`.
+:::

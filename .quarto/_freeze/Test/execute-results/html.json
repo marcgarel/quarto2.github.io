@@ -1,0 +1,16 @@
+{
+  "hash": "18eaa4537633e14d5133e1393693d9a1",
+  "result": {
+    "markdown": "---\ntitle: \"Test\"\nformat: html\n---\n\n\n## Hello world\n\n\n::: {.cell}\n\n```{.r .cell-code}\nplot(cars)\n```\n\n::: {.cell-output-display}\n![](Test_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n\n\n## C'est trop cool \n\n:::{.callout-warning}\nNote that there are five types of callouts, including: \n`note`, `tip`, `warning`, `caution`, and `important`.\n:::",
+    "supporting": [
+      "Test_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
