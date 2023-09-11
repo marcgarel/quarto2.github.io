@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>quarto2 - Graph</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">quarto2</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Test.html" rel="" target="">
+ <span class="menu-text">Test</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Tuto1.html" rel="" target="">
+ <span class="menu-text">Tuto1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./Graph.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Graph</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#i-use-of-ggplot-packages-to-perform-smart-plot" id="toc-i-use-of-ggplot-packages-to-perform-smart-plot" class="nav-link active" data-scroll-target="#i-use-of-ggplot-packages-to-perform-smart-plot"><span style="color: steelblue;">I-Use of ggplot packages to perform smart plot</span></a>
+  <ul class="collapse">
+  <li><a href="#how-to-build-a-graph" id="toc-how-to-build-a-graph" class="nav-link" data-scroll-target="#how-to-build-a-graph">How to build a graph</a></li>
+  <li><a href="#how-to-customise-plot" id="toc-how-to-customise-plot" class="nav-link" data-scroll-target="#how-to-customise-plot">How to customise plot</a></li>
+  <li><a href="#how-to-make-a-figure-with-different-pannel" id="toc-how-to-make-a-figure-with-different-pannel" class="nav-link" data-scroll-target="#how-to-make-a-figure-with-different-pannel">How to make a figure with different pannel?</a></li>
+  <li><a href="#interactive-graph-using-plotly-package" id="toc-interactive-graph-using-plotly-package" class="nav-link" data-scroll-target="#interactive-graph-using-plotly-package">Interactive graph using plotly package</a></li>
+  </ul></li>
+  <li><a href="#ii-package-escquisse" id="toc-ii-package-escquisse" class="nav-link" data-scroll-target="#ii-package-escquisse"><span style="color: steelblue;">II-Package Escquisse</span></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Graph</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="i-use-of-ggplot-packages-to-perform-smart-plot" class="level2">
+<h2 class="anchored" data-anchor-id="i-use-of-ggplot-packages-to-perform-smart-plot"><span style="color: steelblue;">I-Use of ggplot packages to perform smart plot</span></h2>
+<p><strong>ggplot2</strong> is a powerfull packages to make a very smart graph “ready to use” for publication. <strong>gg</strong> means grammar and graph, a concept which describe a graph using grammar. This package belong to tidyverse according to “dplyr”. According to the ggplot2 concept, a graph can be divided into different basic parts:<strong>Plot = data + Aesthetics + Geometry</strong></p>
+<ul>
+<li><em>data</em> : data frame</li>
+<li><em>aesthetics</em> : allows to indicate the x and y variables. It can also be used to control the color, size and shape of the points, etc…</li>
+<li><em>geometry</em> : corresponds to the type of graph (histogram, box plot, line plot, …..)</li>
+</ul>
+<section id="how-to-build-a-graph" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-build-a-graph">How to build a graph</h3>
+<section id="scatter-plot" class="level4">
+<h4 class="anchored" data-anchor-id="scatter-plot">Scatter plot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if not alraedy done load library ggplot2</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: le package 'ggplot2' a été compilé avec la version R 4.1.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width))<span class="sc">+</span> <span class="co"># scatter plot </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="line-plot" class="level4">
+<h4 class="anchored" data-anchor-id="line-plot">Line plot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width))<span class="sc">+</span> <span class="co"># scatter plot </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="how-to-customise-plot" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-customise-plot">How to customise plot</h3>
+<section id="size-and-shape-of-the-scatter-plot" class="level4">
+<h4 class="anchored" data-anchor-id="size-and-shape-of-the-scatter-plot">Size and shape of the scatter plot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change size, color and shape in a scatter plot </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width))<span class="sc">+</span> <span class="co"># scatter plot </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">color =</span><span class="st">"steelblue"</span>, <span class="at">shape=</span><span class="dv">21</span>)  <span class="co"># shape is the same thing wiht classical plot on R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="some-examples-of-customization-on-plot-from-iris-data-set" class="level4">
+<h4 class="anchored" data-anchor-id="some-examples-of-customization-on-plot-from-iris-data-set">Some examples of customization on plot from iris data set</h4>
+<section id="change-the-shape-and-color-color-according-to-species" class="level5">
+<h5 class="anchored" data-anchor-id="change-the-shape-and-color-color-according-to-species">Change the shape and color : color according to species</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can calorize and give a shape by month </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width))<span class="sc">+</span> <span class="co"># scatter plot </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species, <span class="at">shape =</span> Species)) <span class="co"># shape is the same thing with classical plot on R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="change-the-shape-and-color-gradient-of-color-and-shape-accroding-to-species" class="level5">
+<h5 class="anchored" data-anchor-id="change-the-shape-and-color-gradient-of-color-and-shape-accroding-to-species">Change the shape and color : gradient of color and shape accroding to species</h5>
+<p><strong>Be carefull alpha option is for transparency and ranged between 0 and 1</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Sepal.Width,Sepal.Length))<span class="sc">+</span>  </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Petal.Width, <span class="at">shape =</span> Species), <span class="at">size =</span> <span class="dv">2</span>,<span class="at">alpha=</span>(<span class="fl">0.8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong><span style="color: red;">What kind of conclusion we can give me with this kind of graph?</span></strong></p>
+</section>
+</section>
+<section id="you-can-defin-your-own-gradiend-with-scale_color_gradient" class="level4">
+<h4 class="anchored" data-anchor-id="you-can-defin-your-own-gradiend-with-scale_color_gradient">You can defin your own gradiend with scale_color_gradient()</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Sepal.Width,Sepal.Length))<span class="sc">+</span>  </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Petal.Width, <span class="at">shape =</span> Species), <span class="at">size =</span> <span class="dv">2</span>,<span class="at">alpha=</span>(<span class="fl">0.8</span>))<span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"yellow"</span>, <span class="at">high =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="custom-the-color-for-each-species-add-them-and-storage-of-the-plot-in-a-object" class="level5">
+<h5 class="anchored" data-anchor-id="custom-the-color-for-each-species-add-them-and-storage-of-the-plot-in-a-object">Custom the color for each species, add them and storage of the plot in a object</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can change manually color with la fonction scale_color_manual()</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width))<span class="sc">+</span> <span class="co"># scatter plot </span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species, <span class="at">shape =</span> Species))  <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#00AFBB"</span>, <span class="st">"#E7B800"</span>, <span class="st">"#FC4E07"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#You can store your plot in a variable to print later </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width))<span class="sc">+</span> <span class="co"># scatter plot </span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species, <span class="at">shape =</span> Species))  <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#00AFBB"</span>, <span class="st">"#E7B800"</span>, <span class="st">"#FC4E07"</span>))<span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><span style="color: red;"><strong>What do you see if you play the following command : names(p)?</strong></span></p>
+</section>
+</section>
+<section id="change-legend-position-and-add-title-with-axis-label" class="level4">
+<h4 class="anchored" data-anchor-id="change-legend-position-and-add-title-with-axis-label">Change legend position and add title with axis label</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#To arrange the graph we can add some label and change the position of the legend</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Species"</span>, <span class="at">shape=</span> <span class="st">"Sepcies"</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Sepal Length for each speices"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle =</span> <span class="st">"is a data frame with 150 cases (rows) and 5 variables"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"Sepal.Length (mm)"</span>, <span class="at">y =</span> <span class="st">"Sepal.Width (mm)"</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="add-a-trend-curve-using-stat_smooth" class="level4">
+<h4 class="anchored" data-anchor-id="add-a-trend-curve-using-stat_smooth">Add a trend curve using stat_smooth()</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p2<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Sepal.Length,Petal.Length))<span class="sc">+</span> <span class="co"># scatter plot </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">color =</span><span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method=</span>lm, <span class="at">se=</span><span class="cn">TRUE</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">show.legend =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sepal.Length (mm)"</span>, <span class="at">y =</span> <span class="st">"Pepal.Length (mm)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>To get data from the trend</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot_build</span>(p2)<span class="sc">$</span>data[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          x         y      ymin     ymax         se flipped_aes PANEL group
+1  4.300000 0.8898184 0.5928870 1.186750 0.15025965       FALSE     1    -1
+2  4.345570 0.9745065 0.6843700 1.264643 0.14682115       FALSE     1    -1
+3  4.391139 1.0591946 0.7758049 1.342584 0.14340694       FALSE     1    -1
+4  4.436709 1.1438827 0.8671884 1.420577 0.14001881       FALSE     1    -1
+5  4.482278 1.2285708 0.9585165 1.498625 0.13665869       FALSE     1    -1
+6  4.527848 1.3132589 1.0497850 1.576733 0.13332869       FALSE     1    -1
+7  4.573418 1.3979469 1.1409895 1.654904 0.13003114       FALSE     1    -1
+8  4.618987 1.4826350 1.2321248 1.733145 0.12676857       FALSE     1    -1
+9  4.664557 1.5673231 1.3231856 1.811461 0.12354374       FALSE     1    -1
+10 4.710127 1.6520112 1.4141657 1.889857 0.12035969       FALSE     1    -1
+11 4.755696 1.7366993 1.5050587 1.968340 0.11721974       FALSE     1    -1
+12 4.801266 1.8213874 1.5958574 2.046917 0.11412754       FALSE     1    -1
+13 4.846835 1.9060755 1.6865538 2.125597 0.11108706       FALSE     1    -1
+14 4.892405 1.9907635 1.7771394 2.204388 0.10810268       FALSE     1    -1
+15 4.937975 2.0754516 1.8676047 2.283299 0.10517918       FALSE     1    -1
+16 4.983544 2.1601397 1.9579394 2.362340 0.10232176       FALSE     1    -1
+17 5.029114 2.2448278 2.0481322 2.441523 0.09953612       FALSE     1    -1
+18 5.074684 2.3295159 2.1381710 2.520861 0.09682845       FALSE     1    -1
+19 5.120253 2.4142040 2.2280424 2.600366 0.09420548       FALSE     1    -1
+20 5.165823 2.4988921 2.3177320 2.680052 0.09167449       FALSE     1    -1
+21 5.211392 2.5835801 2.4072245 2.759936 0.08924328       FALSE     1    -1
+22 5.256962 2.6682682 2.4965032 2.840033 0.08692025       FALSE     1    -1
+23 5.302532 2.7529563 2.5855505 2.920362 0.08471428       FALSE     1    -1
+24 5.348101 2.8376444 2.6743480 3.000941 0.08263476       FALSE     1    -1
+25 5.393671 2.9223325 2.7628763 3.081789 0.08069145       FALSE     1    -1
+26 5.439241 3.0070206 2.8511155 3.162926 0.07889444       FALSE     1    -1
+27 5.484810 3.0917086 2.9390454 3.244372 0.07725392       FALSE     1    -1
+28 5.530380 3.1763967 3.0266461 3.326147 0.07578006       FALSE     1    -1
+29 5.575949 3.2610848 3.1138978 3.408272 0.07448275       FALSE     1    -1
+30 5.621519 3.3457729 3.2007821 3.490764 0.07337136       FALSE     1    -1
+31 5.667089 3.4304610 3.2872821 3.573640 0.07245446       FALSE     1    -1
+32 5.712658 3.5151491 3.3733831 3.656915 0.07173948       FALSE     1    -1
+33 5.758228 3.5998372 3.4590730 3.740601 0.07123252       FALSE     1    -1
+34 5.803797 3.6845252 3.5443430 3.824707 0.07093803       FALSE     1    -1
+35 5.849367 3.7692133 3.6291879 3.909239 0.07085867       FALSE     1    -1
+36 5.894937 3.8539014 3.7136063 3.994197 0.07099515       FALSE     1    -1
+37 5.940506 3.9385895 3.7976006 4.079578 0.07134624       FALSE     1    -1
+38 5.986076 4.0232776 3.8811770 4.165378 0.07190879       FALSE     1    -1
+39 6.031646 4.1079657 3.9643453 4.251586 0.07267789       FALSE     1    -1
+40 6.077215 4.1926538 4.0471181 4.338189 0.07364708       FALSE     1    -1
+41 6.122785 4.2773418 4.1295109 4.425173 0.07480857       FALSE     1    -1
+42 6.168354 4.3620299 4.2115411 4.512519 0.07615357       FALSE     1    -1
+43 6.213924 4.4467180 4.2932276 4.600208 0.07767254       FALSE     1    -1
+44 6.259494 4.5314061 4.3745899 4.688222 0.07935550       FALSE     1    -1
+45 6.305063 4.6160942 4.4556484 4.776540 0.08119225       FALSE     1    -1
+46 6.350633 4.7007823 4.5364230 4.865141 0.08317259       FALSE     1    -1
+47 6.396203 4.7854704 4.6169337 4.954007 0.08528654       FALSE     1    -1
+48 6.441772 4.8701584 4.6971995 5.043117 0.08752440       FALSE     1    -1
+49 6.487342 4.9548465 4.7772387 5.132454 0.08987692       FALSE     1    -1
+50 6.532911 5.0395346 4.8570686 5.222001 0.09233535       FALSE     1    -1
+51 6.578481 5.1242227 4.9367056 5.311740 0.09489144       FALSE     1    -1
+52 6.624051 5.2089108 5.0161647 5.401657 0.09753752       FALSE     1    -1
+53 6.669620 5.2935989 5.0954600 5.491738 0.10026647       FALSE     1    -1
+54 6.715190 5.3782869 5.1746046 5.581969 0.10307170       FALSE     1    -1
+55 6.760759 5.4629750 5.2536105 5.672340 0.10594715       FALSE     1    -1
+56 6.806329 5.5476631 5.3324885 5.762838 0.10888727       FALSE     1    -1
+57 6.851899 5.6323512 5.4112489 5.853454 0.11188695       FALSE     1    -1
+58 6.897468 5.7170393 5.4899007 5.944178 0.11494153       FALSE     1    -1
+59 6.943038 5.8017274 5.5684525 6.035002 0.11804675       FALSE     1    -1
+60 6.988608 5.8864155 5.6469119 6.125919 0.12119872       FALSE     1    -1
+61 7.034177 5.9711035 5.7252860 6.216921 0.12439388       FALSE     1    -1
+62 7.079747 6.0557916 5.8035811 6.308002 0.12762899       FALSE     1    -1
+63 7.125316 6.1404797 5.8818031 6.399156 0.13090109       FALSE     1    -1
+64 7.170886 6.2251678 5.9599574 6.490378 0.13420747       FALSE     1    -1
+65 7.216456 6.3098559 6.0380488 6.581663 0.13754566       FALSE     1    -1
+66 7.262025 6.3945440 6.1160818 6.673006 0.14091339       FALSE     1    -1
+67 7.307595 6.4792321 6.1940606 6.764404 0.14430861       FALSE     1    -1
+68 7.353165 6.5639201 6.2719887 6.855852 0.14772942       FALSE     1    -1
+69 7.398734 6.6486082 6.3498697 6.947347 0.15117407       FALSE     1    -1
+70 7.444304 6.7332963 6.4277068 7.038886 0.15464098       FALSE     1    -1
+71 7.489873 6.8179844 6.5055028 7.130466 0.15812868       FALSE     1    -1
+72 7.535443 6.9026725 6.5832603 7.222085 0.16163582       FALSE     1    -1
+73 7.581013 6.9873606 6.6609818 7.313739 0.16516118       FALSE     1    -1
+74 7.626582 7.0720486 6.7386697 7.405428 0.16870359       FALSE     1    -1
+75 7.672152 7.1567367 6.8163259 7.497148 0.17226202       FALSE     1    -1
+76 7.717722 7.2414248 6.8939523 7.588897 0.17583549       FALSE     1    -1
+77 7.763291 7.3261129 6.9715509 7.680675 0.17942310       FALSE     1    -1
+78 7.808861 7.4108010 7.0491231 7.772479 0.18302403       FALSE     1    -1
+79 7.854430 7.4954891 7.1266705 7.864308 0.18663749       FALSE     1    -1
+80 7.900000 7.5801772 7.2041946 7.956160 0.19026278       FALSE     1    -1
+    colour   fill linewidth linetype weight alpha
+1  #3366FF grey60         1        1      1   0.4
+2  #3366FF grey60         1        1      1   0.4
+3  #3366FF grey60         1        1      1   0.4
+4  #3366FF grey60         1        1      1   0.4
+5  #3366FF grey60         1        1      1   0.4
+6  #3366FF grey60         1        1      1   0.4
+7  #3366FF grey60         1        1      1   0.4
+8  #3366FF grey60         1        1      1   0.4
+9  #3366FF grey60         1        1      1   0.4
+10 #3366FF grey60         1        1      1   0.4
+11 #3366FF grey60         1        1      1   0.4
+12 #3366FF grey60         1        1      1   0.4
+13 #3366FF grey60         1        1      1   0.4
+14 #3366FF grey60         1        1      1   0.4
+15 #3366FF grey60         1        1      1   0.4
+16 #3366FF grey60         1        1      1   0.4
+17 #3366FF grey60         1        1      1   0.4
+18 #3366FF grey60         1        1      1   0.4
+19 #3366FF grey60         1        1      1   0.4
+20 #3366FF grey60         1        1      1   0.4
+21 #3366FF grey60         1        1      1   0.4
+22 #3366FF grey60         1        1      1   0.4
+23 #3366FF grey60         1        1      1   0.4
+24 #3366FF grey60         1        1      1   0.4
+25 #3366FF grey60         1        1      1   0.4
+26 #3366FF grey60         1        1      1   0.4
+27 #3366FF grey60         1        1      1   0.4
+28 #3366FF grey60         1        1      1   0.4
+29 #3366FF grey60         1        1      1   0.4
+30 #3366FF grey60         1        1      1   0.4
+31 #3366FF grey60         1        1      1   0.4
+32 #3366FF grey60         1        1      1   0.4
+33 #3366FF grey60         1        1      1   0.4
+34 #3366FF grey60         1        1      1   0.4
+35 #3366FF grey60         1        1      1   0.4
+36 #3366FF grey60         1        1      1   0.4
+37 #3366FF grey60         1        1      1   0.4
+38 #3366FF grey60         1        1      1   0.4
+39 #3366FF grey60         1        1      1   0.4
+40 #3366FF grey60         1        1      1   0.4
+41 #3366FF grey60         1        1      1   0.4
+42 #3366FF grey60         1        1      1   0.4
+43 #3366FF grey60         1        1      1   0.4
+44 #3366FF grey60         1        1      1   0.4
+45 #3366FF grey60         1        1      1   0.4
+46 #3366FF grey60         1        1      1   0.4
+47 #3366FF grey60         1        1      1   0.4
+48 #3366FF grey60         1        1      1   0.4
+49 #3366FF grey60         1        1      1   0.4
+50 #3366FF grey60         1        1      1   0.4
+51 #3366FF grey60         1        1      1   0.4
+52 #3366FF grey60         1        1      1   0.4
+53 #3366FF grey60         1        1      1   0.4
+54 #3366FF grey60         1        1      1   0.4
+55 #3366FF grey60         1        1      1   0.4
+56 #3366FF grey60         1        1      1   0.4
+57 #3366FF grey60         1        1      1   0.4
+58 #3366FF grey60         1        1      1   0.4
+59 #3366FF grey60         1        1      1   0.4
+60 #3366FF grey60         1        1      1   0.4
+61 #3366FF grey60         1        1      1   0.4
+62 #3366FF grey60         1        1      1   0.4
+63 #3366FF grey60         1        1      1   0.4
+64 #3366FF grey60         1        1      1   0.4
+65 #3366FF grey60         1        1      1   0.4
+66 #3366FF grey60         1        1      1   0.4
+67 #3366FF grey60         1        1      1   0.4
+68 #3366FF grey60         1        1      1   0.4
+69 #3366FF grey60         1        1      1   0.4
+70 #3366FF grey60         1        1      1   0.4
+71 #3366FF grey60         1        1      1   0.4
+72 #3366FF grey60         1        1      1   0.4
+73 #3366FF grey60         1        1      1   0.4
+74 #3366FF grey60         1        1      1   0.4
+75 #3366FF grey60         1        1      1   0.4
+76 #3366FF grey60         1        1      1   0.4
+77 #3366FF grey60         1        1      1   0.4
+78 #3366FF grey60         1        1      1   0.4
+79 #3366FF grey60         1        1      1   0.4
+80 #3366FF grey60         1        1      1   0.4</code></pre>
+</div>
+</div>
+</section>
+<section id="density-plot" class="level4">
+<h4 class="anchored" data-anchor-id="density-plot">Density plot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(<span class="at">data =</span> iris)<span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> <span class="st">"Sepal.Length"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="and-i-add-a-layer" class="level5">
+<h5 class="anchored" data-anchor-id="and-i-add-a-layer">And I add a layer…</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris)<span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> <span class="st">"Sepal.Length"</span>))<span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Width, <span class="at">fill =</span> <span class="st">"Sepal.Width"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="one-more" class="level5">
+<h5 class="anchored" data-anchor-id="one-more">one more</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris)<span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> <span class="st">"Sepal.Length"</span>))<span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Width, <span class="at">fill =</span> <span class="st">"Sepal.Width"</span>))<span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> Petal.Width, <span class="at">fill =</span> <span class="st">"Petal.Width"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="and-the-last-one-with-some-aesthics" class="level5">
+<h5 class="anchored" data-anchor-id="and-the-last-one-with-some-aesthics">And the last one with some aesthics</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris)<span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> <span class="st">"Sepal.Length"</span>), <span class="at">alpha=</span><span class="fl">0.4</span>,<span class="at">color=</span><span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Width, <span class="at">fill =</span> <span class="st">"Sepal.Width"</span>), <span class="at">alpha=</span><span class="fl">0.4</span>,<span class="at">color=</span><span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> Petal.Width, <span class="at">fill =</span> <span class="st">"Petal.Width"</span>), <span class="at">alpha=</span><span class="fl">0.4</span>,<span class="at">color=</span><span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> Petal.Length, <span class="at">fill =</span> <span class="st">"Petal.Length"</span>), <span class="at">alpha=</span><span class="fl">0.4</span>,<span class="at">color=</span><span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x=</span><span class="st">"cm"</span>, <span class="at">y=</span><span class="st">"Fréquence"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="bar-plot" class="level4">
+<h4 class="anchored" data-anchor-id="bar-plot">Bar plot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: le package 'dplyr' a été compilé avec la version R 4.1.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attachement du package : 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Les objets suivants sont masqués depuis 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Les objets suivants sont masqués depuis 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>my_df<span class="ot">&lt;-</span>iris <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(Species)<span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">moyenne=</span><span class="fu">mean</span>(Sepal.Length, <span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="at">sd=</span><span class="fu">sd</span>(Sepal.Length, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>my_df<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(my_df)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> my_df, <span class="fu">aes</span>(Species, moyenne))<span class="sc">+</span><span class="co"># scatter plot</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">color=</span> Species, <span class="at">fill=</span>Species))<span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Species"</span>, <span class="at">y=</span><span class="st">"Sepal.Length (mm)"</span>)<span class="sc">+</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> moyenne<span class="sc">-</span>sd, <span class="at">ymax =</span> moyenne<span class="sc">+</span>sd), <span class="at">width=</span><span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="boxplot" class="level4">
+<h4 class="anchored" data-anchor-id="boxplot">Boxplot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Species, Sepal.Length))<span class="sc">+</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Species"</span>, <span class="at">y=</span><span class="st">"Sepal.Length (mm)"</span>)<span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="with-some-aesthetics-color-by-species-transparency-and-theme" class="level5">
+<h5 class="anchored" data-anchor-id="with-some-aesthetics-color-by-species-transparency-and-theme">With some aesthetics : color by species, transparency and theme</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Species, Sepal.Length))<span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species, <span class="at">fill=</span>Species), <span class="at">alpha=</span><span class="fl">0.4</span>)<span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Species"</span>, <span class="at">y=</span><span class="st">"Sepal.Length (mm)"</span>)<span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="i-add-data-on-the-boxplot" class="level5">
+<h5 class="anchored" data-anchor-id="i-add-data-on-the-boxplot">I add data on the boxplot</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Species, Sepal.Length))<span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species, <span class="at">fill=</span>Species), <span class="at">alpha=</span><span class="fl">0.4</span>)<span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="fl">0.07</span>), <span class="at">cex =</span> <span class="fl">2.2</span>)<span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Species"</span>, <span class="at">y=</span><span class="st">"Sepal.Length (mm)"</span>)<span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="or-i-add-mean-on-boxplot" class="level5">
+<h5 class="anchored" data-anchor-id="or-i-add-mean-on-boxplot">Or I add mean on boxplot</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>iris, <span class="fu">aes</span>(<span class="at">x=</span>Species, <span class="at">y=</span>Sepal.Length))<span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill=</span>Species,<span class="at">col=</span>Species),<span class="at">alpha=</span><span class="fl">0.6</span>)<span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Species"</span>,<span class="at">y=</span><span class="st">"Sepal Length"</span>, <span class="at">title=</span><span class="st">"Iris Boxplot"</span>)<span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">5</span>, <span class="at">col=</span><span class="st">"white"</span>, <span class="at">size=</span><span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="d-approach-geom_density2d" class="level4">
+<h4 class="anchored" data-anchor-id="d-approach-geom_density2d">2D approach: geom_density2d</h4>
+<p>Notez Densité à travers des contours lignes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Width,<span class="at">y=</span>Sepal.Length, <span class="at">color=</span>Species))<span class="sc">+</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density2d</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="i-data-on-the-contour-plot" class="level5">
+<h5 class="anchored" data-anchor-id="i-data-on-the-contour-plot">I data on the contour plot</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Width,<span class="at">y=</span>Sepal.Length, <span class="at">color=</span>Species)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_density2d</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Save your plot</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">"yourfile.pdf"</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Species, Sepal.Length))<span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species, <span class="at">fill=</span>Species), <span class="at">alpha=</span><span class="fl">0.4</span>)<span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="fl">0.07</span>), <span class="at">cex =</span> <span class="fl">2.2</span>)<span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Species"</span>, <span class="at">y=</span><span class="st">"Sepal.Length (mm)"</span>)<span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>quartz_off_screen 
+                2 </code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="how-to-make-a-figure-with-different-pannel" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-make-a-figure-with-different-pannel">How to make a figure with different pannel?</h3>
+<p>For this, we will use <strong>facet_wrap</strong> option on iris data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Sepal.Length,Petal.Length))<span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> Species))<span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Species, <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Graph_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="interactive-graph-using-plotly-package" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-graph-using-plotly-package">Interactive graph using plotly package</h3>
+<p>If not installed, you have to install it and load it</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>p4<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(Species, Sepal.Length))<span class="sc">+</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species, <span class="at">fill=</span>Species), <span class="at">alpha=</span><span class="fl">0.4</span>)<span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="fl">0.07</span>), <span class="at">cex =</span> <span class="fl">2.2</span>)<span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Species"</span>, <span class="at">y=</span><span class="st">"Sepal.Length (mm)"</span>)<span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>plotly<span class="sc">::</span><span class="fu">ggplotly</span>(p4, <span class="at">height =</span> <span class="dv">350</span>, <span class="at">width=</span><span class="dv">800</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-08ff1baa21d6d4230e14" style="width:100%;height:284px;" class="plotly html-widget "></div>
+<script type="application/json" data-for="htmlwidget-08ff1baa21d6d4230e14">{"x":{"data":[{"x":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"y":[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5],"hoverinfo":"y","type":"box","fillcolor":"rgba(248,118,109,0.4)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(248,118,109,1)","width":1.88976377952756},"name":"setosa","legendgroup":"setosa","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"y":[7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7],"hoverinfo":"y","type":"box","fillcolor":"rgba(0,186,56,0.4)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(0,186,56,1)","width":1.88976377952756},"name":"versicolor","legendgroup":"versicolor","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"y":[6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"hoverinfo":"y","type":"box","fillcolor":"rgba(97,156,255,0.4)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(97,156,255,1)","width":1.88976377952756},"name":"virginica","legendgroup":"virginica","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[1.02925095088314,0.948333638319746,0.987817562832497,1.00727820787579,0.961973828128539,1.0092022154713,0.950098092877306,0.972971080681309,0.930637692827731,1.04356602295302,0.987683740979992,1.01040103889536,1.00397824486718,0.967757044481114,0.93150235554669,1.03197609546129,1.02920904525556,0.943531046477146,1.0101306156069,1.05370468850713,1.0301445082901,0.974526737062261,0.983154772436246,1.01499447677284,1.02162695113104,1.05636300629005,1.03069584347308,0.931472163917497,0.956277302620001,0.947179325129837,0.972841818202287,0.959590812092647,0.998603877914138,0.947146248240024,0.956390000740066,0.985273543321528,1.03404427221045,1.03937959210016,0.960181693322957,0.933732319287956,0.970625047679059,0.959069781126454,1.04928733917885,1.01636852530297,1.01331522233319,1.05213790531736,1.0309813083522,1.04127126737032,1.04510360599495,1.0128677222738],"y":[5.11400240641087,4.92810409711674,4.67394578458741,4.62560576669872,5.02959661399946,5.42007195016369,4.63864252647385,4.9714702774398,4.36539071682841,4.89902345485985,5.43591701434925,4.83900904389098,4.76055301651359,4.2709998918511,5.83757760211825,5.66129627579823,5.43897259661928,5.06570253970101,5.66414969624952,5.08225590946153,5.38826251508668,5.09174831161276,4.59269427252933,5.07339917767793,4.77620624572039,5.00925957391039,5.01152849258855,5.21195444213226,5.21132862491533,4.73156696744263,4.77827861668542,5.41659942056984,5.1850399258174,5.4699744627066,4.87977075817064,5.00254497973248,5.49385248219594,4.8821176420711,4.37866813909262,5.12185140261426,5.01179748015478,4.50103118401021,4.42543992444873,4.96572035269812,5.06190186955035,4.83793725846335,5.11177828703076,4.59088139094412,5.32114072224125,4.96367000320926],"text":["Species: setosa<br />Sepal.Length: 5.1<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.9<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.7<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.6<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.0<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.4<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.6<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.0<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.4<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.9<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.4<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.8<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.8<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.3<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.8<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.7<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.4<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.1<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.7<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.1<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.4<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.1<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.6<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.1<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.8<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.0<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.0<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.2<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.2<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.7<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.8<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.4<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.2<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.5<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.9<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.0<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.5<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.9<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.4<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.1<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.0<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.5<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.4<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.0<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.1<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.8<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.1<br />Species: setosa","Species: setosa<br />Sepal.Length: 4.6<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.3<br />Species: setosa","Species: setosa<br />Sepal.Length: 5.0<br />Species: setosa"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":8.31496062992126,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"(setosa,1)","legendgroup":"(setosa,1)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2.00624111932237,2.01213845629711,2.00854399099015,1.98251216340344,1.94426838671789,2.04350888455752,1.95578350764699,2.01672860028688,2.01374208056368,1.99882040225901,2.04860056135803,1.99880109658465,2.01834409045055,2.02701415593736,2.02833856462035,1.97866006467957,2.04348191875499,2.03527647606097,2.05824386030901,2.0260965802148,2.0218205353478,1.96344342518598,1.93846502448898,1.98948624776211,2.00572354000993,2.06131130205002,2.03614992491435,2.0222480481118,1.97334663515445,1.97115168374032,2.02703780963086,1.9608522495674,1.98248285924084,1.98336703331675,2.00266323705204,1.98574091010261,2.03055634481367,1.94402093934827,1.9837123100413,1.99453554518055,2.04053246720694,1.94888271308038,2.01453470554668,1.9627105636429,2.01188616560772,1.9491327199107,2.0001457089372,1.94834668707103,1.97881791837513,1.99056151449215],"y":[7.02110695483163,6.41651427134872,6.91059851333499,5.49687011875212,6.49045009447262,5.66099704120308,6.30458456186578,4.86377235597,6.62959894446656,5.16764177205041,4.97184865733609,5.89672267215327,6.0087849275209,6.13528244109824,5.56124548567459,6.71723558161408,5.59618760179728,5.82280563997105,6.23356888720766,5.57831062678248,5.88378209611401,6.09759736016393,6.295058277715,6.11243582339957,6.39314902989194,6.60337274245918,6.8183230891265,6.70550799766555,5.99716473681852,5.70149346282706,5.52168295150623,5.51524884123355,5.7766440304555,6.02486808437854,5.42470996681601,6.02885305352509,6.71758605558425,6.2991426714696,5.63870729040354,5.53870364118367,5.49544537534937,6.091476341784,5.80018797241151,4.97481932586059,5.60636647131294,5.68859273234382,5.72111448192969,6.21092410765588,5.07752540932968,5.73994103694335],"text":["Species: versicolor<br />Sepal.Length: 7.0<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.4<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.9<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.5<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.5<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.7<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.3<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 4.9<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.6<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.2<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.0<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.9<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.0<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.1<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.6<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.7<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.6<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.8<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.2<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.6<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.9<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.1<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.3<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.1<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.4<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.6<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.8<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.7<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.0<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.7<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.5<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.5<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.8<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.0<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.4<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.0<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.7<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.3<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.6<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.5<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.5<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.1<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.8<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.0<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.6<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.7<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.7<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 6.2<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.1<br />Species: versicolor","Species: versicolor<br />Sepal.Length: 5.7<br />Species: versicolor"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","opacity":1,"size":8.31496062992126,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,186,56,1)"}},"hoveron":"points","name":"(versicolor,1)","legendgroup":"(versicolor,1)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2.93825230960734,2.97369093995541,2.95601019544993,2.96732506028842,2.97015903146006,3.02433329377789,2.93867798139807,3.03785952663049,2.99808193223085,2.96125073911622,2.99297969468869,3.05272698882967,2.94924499916844,2.96866995554417,3.0408142977301,2.98568560511805,3.02346851853654,3.04598739810754,2.93458364334423,3.05807836933527,2.99777516430709,3.03986139626708,3.03245932939928,3.06217521710787,2.97362645758316,2.97475438355468,3.0443900724221,3.04116202351172,2.9445906708017,2.98249396528583,3.04029961329419,3.04226437032688,2.98394516959321,3.03478178266902,2.98935845289845,3.06684195462149,3.0483933528699,3.00818576965947,2.98939953168854,2.98563221686054,3.05675120698288,3.01016221428756,3.05740111008752,2.9444153115619,2.93044447460212,3.04771409573033,3.03600650482345,2.99010049877223,2.96835034409538,2.99502983261831],"y":[6.26232945922762,5.83134220151231,7.07522456618026,6.33893712798133,6.51824665943161,7.57456188017502,4.90463273936883,7.30838077884167,6.7058927404508,7.17166508685797,6.4836333848536,6.43724035361782,6.79938336070627,5.69613292625174,5.82512220999226,6.39756496872753,6.53088881952688,7.73127969397232,7.73286033738404,5.97122243771329,6.87275040360168,5.62257600557059,7.70546627763659,6.28763456325978,6.67807575404644,7.18648120032623,6.23596150984988,6.10845294872299,6.4124853143096,7.16892329029739,7.40562658332288,7.90532891290262,6.38726511834189,6.2664690290764,6.08702531119809,7.68248808547854,6.27974586272612,6.36489618573338,6.03264209955931,6.91049383753911,6.72883593119681,6.91932975098491,5.81473410045728,6.78978068834171,6.6823084336333,6.70879425898194,6.2706548147276,6.50025088872761,6.20498906066641,5.90608577340841],"text":["Species: virginica<br />Sepal.Length: 6.3<br />Species: virginica","Species: virginica<br />Sepal.Length: 5.8<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.1<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.3<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.5<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.6<br />Species: virginica","Species: virginica<br />Sepal.Length: 4.9<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.3<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.7<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.2<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.5<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.4<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.8<br />Species: virginica","Species: virginica<br />Sepal.Length: 5.7<br />Species: virginica","Species: virginica<br />Sepal.Length: 5.8<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.4<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.5<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.7<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.7<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.0<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.9<br />Species: virginica","Species: virginica<br />Sepal.Length: 5.6<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.7<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.3<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.7<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.2<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.2<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.1<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.4<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.2<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.4<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.9<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.4<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.3<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.1<br />Species: virginica","Species: virginica<br />Sepal.Length: 7.7<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.3<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.4<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.0<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.9<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.7<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.9<br />Species: virginica","Species: virginica<br />Sepal.Length: 5.8<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.8<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.7<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.7<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.3<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.5<br />Species: virginica","Species: virginica<br />Sepal.Length: 6.2<br />Species: virginica","Species: virginica<br />Sepal.Length: 5.9<br />Species: virginica"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","opacity":1,"size":8.31496062992126,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(97,156,255,1)"}},"hoveron":"points","name":"(virginica,1)","legendgroup":"(virginica,1)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":32.6992824527071,"r":7.30593607305936,"b":46.6536203522505,"l":31.4155251141553},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,3.6],"tickmode":"array","ticktext":["setosa","versicolor","virginica"],"tickvals":[1,2,3],"categoryorder":"array","categoryarray":["setosa","versicolor","virginica"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"Species","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.08928344079852,8.0870453639552],"tickmode":"array","ticktext":["5","6","7","8"],"tickvals":[5,6,7,8],"categoryorder":"array","categoryarray":["5","6","7","8"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"Sepal.Length (mm)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"Species","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","width":800,"height":350,"barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"3431530603fb":{"x":{},"y":{},"colour":{},"fill":{},"type":"box"},"34312fef7e52":{"x":{},"y":{},"colour":{}}},"cur_data":"3431530603fb","visdat":{"3431530603fb":["function (y) ","x"],"34312fef7e52":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p><em>Exo 1</em></p>
+<ol type="1">
+<li>Read the data set mapfileFa.txt</li>
+<li>Give me the structure of the data set, and explore the data set. Dimension of the data set ? What kind of variable do you have?</li>
+<li>Give me the distribution Chlorophyl and Nanoeukaryote using ggplot and geom_boxplot() colored by the geography. Using the package patchwork (https://cran.r-project.org/web/packages/patchwork/vignettes/patchwork.html) build figure with these two on a same pages and save it as pdf</li>
+<li>Add a variable into the data frame as the ratio between NT and PT. Build a scatter of the ratio NT/PT as a function sample name and sort by geography using facet_wrap function. Change x and y label as Sample Name and Ratio NR/TP. Give a title at your figure.</li>
+<li>Group dataset by the geopgraphy ,calclulate the mean and the sd of the nbr of Crypto. Build a bar plot with mean and error bar (sd) colored according to the geography and save the plot<br>
+</li>
+<li>Save figure as pdf</li>
+<li>Filter South data in a new data frame. Build a scatter plot, with size of shape = 3 and color = red. Add a trend curve.</li>
+<li>Do the the same for northern site.</li>
+</ol>
+</section>
+</section>
+<section id="ii-package-escquisse" class="level2">
+<h2 class="anchored" data-anchor-id="ii-package-escquisse"><span style="color: steelblue;">II-Package Escquisse</span></h2>
+<p>Esquisse is a web application to build easily a ggplot giving commande line to customize it. . Also, it is export graph as a picture or pdf</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
