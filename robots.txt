@@ -1,0 +1,1 @@
+Sitemap: https://marcgarel.github.io/quarto2.github.io/sitemap.xml
