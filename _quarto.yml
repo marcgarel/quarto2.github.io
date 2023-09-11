@@ -11,6 +11,9 @@ website:
       - Test.qmd
       - Tuto1.qmd
       - Graph.qmd
+    right:
+      - icon: github
+        href: https://github.com/marcgarel/quarto2.github.io
 
 format:
   html:
